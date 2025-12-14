@@ -136,7 +136,7 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 320px; /* Width of the paper */
+            width: 320px;
             height: 60px; /* Start closed */
             z-index: 60;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 1.5s cubic-bezier(0.45, 0, 0.55, 1);
@@ -154,7 +154,6 @@
             background-image: 
                 linear-gradient(to right, rgba(160, 82, 45, 0.1), transparent 5%, transparent 95%, rgba(160, 82, 45, 0.1)),
                 repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(160, 82, 45, 0.03) 1px, rgba(160, 82, 45, 0.03) 2px);
-            /* Internal shadows to look rolled */
             box-shadow: 
                 inset 0 15px 30px -10px rgba(0,0,0,0.7),
                 inset 0 -15px 30px -10px rgba(0,0,0,0.7),
@@ -162,37 +161,55 @@
             border-left: 1px dashed rgba(139, 69, 19, 0.3);
             border-right: 1px dashed rgba(139, 69, 19, 0.3);
             position: relative;
-            overflow: hidden;
+            /* Allow scrolling if content overflows on small screens */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-evenly; /* Spread content out so button isn't pushed off */
             align-items: center;
-            padding: 50px 25px;
+            
+            padding: 60px 25px; /* Large padding to clear rollers */
             opacity: 0; 
             transition: opacity 0.5s;
+            
+            /* Hide scrollbar for cleaner look */
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        
+        .scroll-body::-webkit-scrollbar { 
+            display: none; 
         }
 
-        /* Decorative Corners inside scroll */
-        .scroll-body::before {
-            content: "❧"; position: absolute; top: 10px; left: 10px;
-            font-size: 2rem; color: rgba(139, 69, 19, 0.2); transform: rotate(-45deg);
-        }
-        .scroll-body::after {
-            content: "❧"; position: absolute; bottom: 10px; right: 10px;
-            font-size: 2rem; color: rgba(139, 69, 19, 0.2); transform: rotate(135deg);
+        /* Watermark Kite Effect */
+        .watermark-kite {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(15deg);
+            width: 70%;
+            height: 70%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50,0 L100,60 L50,100 L0,60 Z' fill='rgba(255,81,47,0.1)' stroke='rgba(255,81,47,0.2)' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.6;
+            filter: blur(2px);
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* 3D ROLLERS */
         .scroll-roller {
             position: absolute;
             left: 50%; transform: translateX(-50%);
-            width: 380px; /* Wider than paper */
-            height: 45px;
-            /* Realistic Dark Wood / Metal Gradient */
+            width: 380px; 
+            height: 50px; /* Slightly thicker */
             background: linear-gradient(to bottom, #3e2723, #5d4037 20%, #8d6e63 40%, #5d4037 60%, #3e2723 90%, #1a100e);
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
-            z-index: 65;
+            border-radius: 6px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            z-index: 70; /* Higher than content */
             display: flex; align-items: center; justify-content: center;
             color: #ffecb3; font-weight: 700; font-family: 'Cinzel', serif; letter-spacing: 2px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
@@ -200,10 +217,9 @@
             border: 1px solid #281815;
         }
 
-        /* Finials (Gold/Wood End Caps) */
         .scroll-roller::before, .scroll-roller::after {
             content: ''; position: absolute; top: 50%; transform: translateY(-50%);
-            width: 25px; height: 60px; /* Tall ornaments */
+            width: 25px; height: 65px; 
             background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b 60%, #4e342e 100%);
             border-radius: 8px;
             box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), 2px 4px 10px rgba(0,0,0,0.5);
@@ -213,31 +229,59 @@
         .scroll-roller::before { left: -15px; }
         .scroll-roller::after { right: -15px; }
 
-        /* Animation States */
         .roller-top { top: 0; transition: top 1.5s cubic-bezier(0.45, 0, 0.55, 1); }
         .roller-bottom { bottom: 0; transition: bottom 1.5s cubic-bezier(0.45, 0, 0.55, 1); }
 
-        /* OPEN STATE HEIGHT */
-        #scroll-container.open { height: 600px; }
-        #scroll-container.open .roller-top { top: -22px; }
-        #scroll-container.open .roller-bottom { bottom: -22px; }
+        /* Instruction Text Animation */
+        .instruction-text {
+            display: inline-block;
+            animation: glowPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from { 
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            to { 
+                text-shadow: 0 0 20px rgba(255, 236, 179, 1), 0 0 10px rgba(255, 255, 255, 0.8); 
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* OPEN STATE HEIGHT - INCREASED TO FIT BUTTON */
+        #scroll-container.open { height: 65vh; max-height: 650px; }
+        #scroll-container.open .roller-top { top: -25px; }
+        #scroll-container.open .roller-bottom { bottom: -25px; }
         #scroll-container.open .scroll-body { opacity: 1; }
+
+        .scroll-content-wrapper {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            text-align: center;
+            /* Flex layout to ensure button stays visible */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
 
         .sender-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 1.8rem;
-            color: #8B4513; /* Ink color */
-            margin-bottom: 10px;
-            text-align: center;
+            font-size: 2rem;
+            color: #8B4513; 
+            margin-bottom: 5px;
         }
 
         .scroll-message {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            color: #3e2723; /* Dark Brown Ink */
-            text-align: center;
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            color: #3e2723;
             line-height: 1.5;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             font-weight: 600;
         }
 
@@ -254,12 +298,13 @@
             align-items: center;
             padding: 2rem;
             z-index: 70;
+            animation: zoomIn 1s ease-out;
         }
 
-        /* Animated Rainbow Text */
+        /* Animated Rainbow Text - CENTERED with Pulse */
         .rainbow-text {
             font-family: 'Rozha One', serif;
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: clamp(3rem, 12vw, 6rem);
             line-height: 1.1;
             text-align: center;
             background: linear-gradient(to right, #FF00FF, #00FFFF, #00FF00, #FFFF00, #FF0000, #FF00FF);
@@ -272,8 +317,28 @@
             animation: gradient-flow 3s linear infinite;
             filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
             font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            z-index: 40; 
         }
         @keyframes gradient-flow { to { background-position: 200% center; } }
+
+        /* Main Interactive Kite */
+        #main-kite {
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: clamp(200px, 60vw, 350px); 
+            height: clamp(300px, 90vw, 500px); 
+            z-index: 10; /* Lowered to sit BEHIND the text */
+            transition: top 2s ease-in-out;
+            display: none; 
+            filter: drop-shadow(10px 20px 20px rgba(0,0,0,0.4));
+        }
 
         /* Controls */
         .controls-container {
@@ -281,13 +346,77 @@
             display: flex; justify-content: center; gap: 20px; z-index: 80;
         }
         
+        /* Updated Control Button with Outline Following Effect */
         .control-btn {
-            background: rgba(255,255,255,0.9); padding: 12px 25px; border-radius: 50px;
-            color: #1a365d; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            cursor: pointer; transition: transform 0.2s; border: 2px solid transparent;
-            font-size: 1rem; display: flex; align-items: center; gap: 8px;
+            position: relative;
+            z-index: 0;
+            padding: 12px 35px; /* Slightly wider */
+            border-radius: 50px;
+            color: #1a365d; 
+            font-weight: 900; /* Thicker text */
+            cursor: pointer; 
+            transition: transform 0.2s; 
+            border: none; 
+            background: transparent;
+            font-size: 1.2rem; 
+            display: flex; align-items: center; gap: 10px;
+            overflow: hidden;
+            /* Stronger shadow for contrast against map/bg */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.2); 
+            /* Entrance + Float Animation */
+            animation: fadeInUp 0.5s ease-out backwards, btnFloat 3s ease-in-out infinite;
         }
-        .control-btn:hover { transform: scale(1.05); color: #FF512F; }
+
+        /* 1. Rotating Gradient Layer (The "Outline") */
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%; 
+            height: 500%; 
+            /* UPDATED: High Contrast Neon Gradient for visibility */
+            background: conic-gradient(transparent 20%, #00FFFF 40%, #FF00FF 60%, #FFD700 80%, #00FFFF 100%);
+            animation: rotateBorder 3s linear infinite;
+            z-index: -2;
+        }
+
+        /* 2. Inner Background Layer (The Button Face) */
+        .control-btn::after {
+            content: '';
+            position: absolute;
+            inset: 4px; /* Thicker border (was 3px) */
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 48px; 
+            z-index: -1;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .control-btn:hover { 
+            transform: scale(1.05) translateY(-2px); 
+            color: #FF00FF; /* Hover text color */
+        }
+        
+        /* Button Animations */
+        @keyframes rotateBorder {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes btnFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate3d(0, 40px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale3d(0.3, 0.3, 0.3); }
+            50% { opacity: 1; }
+        }
 
         /* Background Kites */
         .bg-kite {
@@ -300,11 +429,28 @@
             to { transform: translateY(-10vh) translateX(50px) rotate(-10deg); }
         }
 
-        /* Main Interactive Kite */
-        #main-kite {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 350px; z-index: 30; transition: top 2s ease-in-out;
-            display: none; 
+        /* Swipe Instruction Styling */
+        .swipe-instruction {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #d35400;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        .scroll-spacer {
+            height: 150px; 
+            width: 100%;
         }
 
     </style>
@@ -339,31 +485,60 @@
     <!-- 3. ANCIENT SCROLL (Replaces Envelope) -->
     <div id="scroll-container">
         <!-- Top Roller -->
-        <div class="scroll-roller roller-top">Tap to Unroll</div>
+        <div class="scroll-roller roller-top">
+            <span class="instruction-text">Tap Anywhere to Open</span>
+        </div>
         
         <!-- Scroll Paper Content -->
-        <div class="scroll-body">
-            <!-- Decorative Separator -->
-            <div class="w-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#8B4513] to-transparent mb-6 opacity-60"></div>
-            
-            <p class="sender-text" id="quotes-header">
-                "Sky full of Kites, Heart full of Joy"
-            </p>
-            
-            <p class="scroll-message">
-                "May the sun radiate peace, prosperity, and happiness in your life.<br>
-                <span class="text-red-700">Til Gul Ghya, God God Bola!</span>"
-            </p>
-            
-            <!-- Signature -->
-            <p id="scroll-signature" style="font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #8B4513; margin-top: auto; margin-bottom: 20px;">
-                From Friend
-            </p>
-            
-            <!-- Inner Action Button -->
-            <button id="letsFlyBtn" class="btn-capsule" style="padding: 1rem 2rem; font-size: 1.1rem; width: auto; box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3); background: linear-gradient(90deg, #d35400, #e67e22, #d35400);">
-                Let's Fly Kites! 🪁
-            </button>
+        <div class="scroll-body" id="scrollBody">
+            <!-- Watermark Kite Effect (Behind Text) -->
+            <div class="watermark-kite"></div>
+
+            <div class="scroll-content-wrapper">
+                <!-- Decorative Separator -->
+                <div class="w-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#8B4513] to-transparent mb-4 mx-auto opacity-60"></div>
+                
+                <p class="sender-text" id="quotes-header">
+                    "Sky full of Kites, Heart full of Joy"
+                </p>
+                
+                <p class="scroll-message">
+                    "May the sun radiate peace, prosperity, and happiness in your life.<br>
+                    <span class="text-red-700">Til Gul Ghya, God God Bola!</span>"
+                </p>
+                
+                <!-- Signature -->
+                <p id="scroll-signature" style="font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #8B4513; margin-bottom: 20px;">
+                    From Friend
+                </p>
+                
+                <!-- Swipe Instruction -->
+                <div class="swipe-instruction" id="swipeHint">
+                    <span>Auto Scrolling...</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                </div>
+                
+                <!-- Invisible Spacer to ensure scrolling is possible -->
+                <div class="scroll-spacer"></div>
+
+                <!-- Inner Action Button (Hidden mainly, triggered by scroll) -->
+                <button id="letsFlyBtn" class="btn-capsule" style="
+                    padding: 1.2rem 2.5rem; 
+                    font-size: 1.2rem; 
+                    width: auto; 
+                    box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4); 
+                    background: linear-gradient(90deg, #d35400, #e67e22, #d35400); 
+                    position: relative; 
+                    z-index: 10;
+                    margin-top: -50px; 
+                    opacity: 0; 
+                    pointer-events: none;
+                ">
+                    Let's Fly Kites! 🪁
+                </button>
+            </div>
         </div>
         
         <!-- Bottom Roller -->
@@ -388,7 +563,7 @@
                     </linearGradient>
                 </defs>
             </svg>
-            <div id="kite-name" style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; color: white; text-shadow: 0 1px 2px black;"></div>
+            <div id="kite-name" style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; color: white; text-shadow: 0 1px 2px black; font-family: 'Great Vibes'; font-size: 1.5rem;"></div>
         </div>
     </div>
 
@@ -403,147 +578,258 @@
     </div>
 
     <script>
-        const els = {
-            setupCard: document.getElementById('setup-card'),
-            nameInput: document.getElementById('nameInput'),
-            flyBtn: document.getElementById('flyBtn'),
-            scrollContainer: document.getElementById('scroll-container'),
-            scrollSignature: document.getElementById('scroll-signature'),
-            letsFlyBtn: document.getElementById('letsFlyBtn'),
-            celebrationUI: document.getElementById('celebration-ui'),
-            mainKite: document.getElementById('main-kite'),
-            kiteName: document.getElementById('kite-name'),
-            footerControls: document.getElementById('footer-controls'),
-            bgKites: document.getElementById('bg-kites-layer')
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const els = {
+                setupCard: document.getElementById('setup-card'),
+                nameInput: document.getElementById('nameInput'),
+                flyBtn: document.getElementById('flyBtn'),
+                scrollContainer: document.getElementById('scroll-container'),
+                scrollBody: document.getElementById('scrollBody'),
+                scrollSignature: document.getElementById('scroll-signature'),
+                letsFlyBtn: document.getElementById('letsFlyBtn'),
+                celebrationUI: document.getElementById('celebration-ui'),
+                mainKite: document.getElementById('main-kite'),
+                kiteName: document.getElementById('kite-name'),
+                footerControls: document.getElementById('footer-controls'),
+                bgKites: document.getElementById('bg-kites-layer')
+            };
 
-        let userName = "";
-        let autoOpenTimer;
+            let userName = "";
+            let autoOpenTimer;
+            let isScrolled = false;
 
-        // --- INIT ---
-        window.addEventListener('load', () => {
+            // --- INIT ---
             createClouds();
             createBgKites(5); 
             
             // Check URL for name
             const urlParams = new URLSearchParams(window.location.search);
             const sharedName = urlParams.get('name');
-            if(sharedName) {
+            if(sharedName && els.nameInput) {
                 els.nameInput.value = sharedName;
             }
-        });
 
-        // --- PHASE 1: INPUT & FLY ---
-        els.flyBtn.addEventListener('click', () => {
-            userName = els.nameInput.value.trim() || "Friend";
-            
-            // Hide Setup
-            els.setupCard.style.transform = "scale(0.8)";
-            els.setupCard.style.opacity = "0";
-            setTimeout(() => els.setupCard.style.display = "none", 500);
+            // --- PHASE 1: INPUT & FLY ---
+            if (els.flyBtn) {
+                els.flyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent immediate triggering of document click
+                    userName = els.nameInput.value.trim() || "Friend";
+                    
+                    // Hide Setup
+                    els.setupCard.style.transform = "scale(0.8)";
+                    els.setupCard.style.opacity = "0";
+                    setTimeout(() => els.setupCard.style.display = "none", 500);
 
-            // Show Scroll (Closed)
-            setTimeout(() => {
-                els.scrollContainer.style.transform = "translate(-50%, -50%) scale(1)";
-                els.scrollSignature.textContent = `From ${userName}`;
-                
-                // Auto Open Timer (5 Seconds)
-                autoOpenTimer = setTimeout(openScroll, 5000);
-            }, 600);
-        });
+                    // Show Scroll (Closed)
+                    setTimeout(() => {
+                        els.scrollContainer.style.transform = "translate(-50%, -50%) scale(1)";
+                        els.scrollSignature.textContent = `From ${userName}`;
+                        
+                        // Enable "Click Anywhere" to open
+                        // Small delay to ensure previous clicks don't register
+                        setTimeout(() => {
+                            document.addEventListener('click', openScrollOnce);
+                        }, 100);
 
-        // --- PHASE 2 & 3: SCROLL OPEN ---
-        els.scrollContainer.addEventListener('click', openScroll);
-
-        function openScroll() {
-            clearTimeout(autoOpenTimer); 
-            if (!els.scrollContainer.classList.contains('open')) {
-                els.scrollContainer.classList.add('open');
-                document.querySelector('.roller-top').textContent = ""; // Clear text
-            }
-        }
-
-        // --- PHASE 4: CELEBRATION ---
-        els.letsFlyBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent closing scroll if clicked inside
-            
-            // Hide Scroll
-            els.scrollContainer.style.opacity = '0';
-            els.scrollContainer.style.pointerEvents = 'none';
-
-            // Show Celebration UI
-            els.celebrationUI.style.opacity = '1';
-            els.celebrationUI.style.pointerEvents = 'auto';
-
-            // Show Main Kite
-            els.mainKite.style.display = 'block';
-            els.kiteName.textContent = userName;
-            // Animate Kite flying up
-            els.mainKite.animate([
-                { transform: 'translate(-50%, 100vh) rotate(0deg)' },
-                { transform: 'translate(-50%, -50%) rotate(10deg)' }
-            ], { duration: 2000, easing: 'ease-out', fill: 'forwards' });
-            
-            // Continuous Float
-            setTimeout(() => {
-                els.mainKite.style.animation = 'kiteFloat 3s ease-in-out infinite alternate';
-            }, 2000);
-
-            // Show Footer
-            els.footerControls.style.display = 'flex';
-
-            // Add MANY kites
-            createBgKites(20);
-        });
-
-        // --- BACKGROUND FX ---
-        function createClouds() {
-            const bg = document.querySelector('.mesh-background');
-            for(let i=0; i<6; i++) {
-                const c = document.createElement('div');
-                c.className = 'cloud';
-                c.style.width = Math.random() * 100 + 100 + 'px';
-                c.style.height = '40px';
-                c.style.top = Math.random() * 60 + '%';
-                c.style.animationDuration = Math.random() * 20 + 20 + 's';
-                bg.appendChild(c);
-            }
-        }
-
-        function createBgKites(count) {
-            const colors = ['#FF512F', '#F09819', '#4CD964', '#DD2476', '#3498db'];
-            for(let i=0; i<count; i++) {
-                const k = document.createElement('div');
-                k.className = 'bg-kite';
-                k.style.background = colors[Math.floor(Math.random() * colors.length)];
-                k.style.left = Math.random() * 100 + 'vw';
-                k.style.animationDuration = Math.random() * 5 + 5 + 's';
-                els.bgKites.appendChild(k);
-            }
-        }
-
-        // --- SHARE ---
-        window.shareLink = function() {
-            const baseUrl = window.location.href.split('?')[0];
-            const shareUrl = `${baseUrl}?name=${encodeURIComponent(userName)}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Happy Makar Sankranti',
-                    text: `Fly a kite with ${userName}!`,
-                    url: shareUrl,
+                        // Auto Open Timer (5 Seconds)
+                        autoOpenTimer = setTimeout(() => {
+                            openScroll();
+                            document.removeEventListener('click', openScrollOnce);
+                        }, 5000);
+                    }, 600);
                 });
-            } else {
-                navigator.clipboard.writeText(shareUrl).then(() => alert("Link copied!"));
             }
-        }
+
+            // Wrapper function for the global listener
+            function openScrollOnce() {
+                openScroll();
+                document.removeEventListener('click', openScrollOnce);
+            }
+
+            // --- PHASE 2 & 3: SCROLL OPEN ---
+            if (els.scrollContainer) {
+                els.scrollContainer.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Handle local click separately if needed, but global covers it
+                    openScrollOnce();
+                });
+            }
+
+            function openScroll() {
+                clearTimeout(autoOpenTimer); 
+                document.removeEventListener('click', openScrollOnce); // Ensure cleanup
+
+                if (els.scrollContainer && !els.scrollContainer.classList.contains('open')) {
+                    els.scrollContainer.classList.add('open');
+                    const topRoller = document.querySelector('.roller-top');
+                    if (topRoller) topRoller.innerHTML = ""; // Clear text/html
+                    
+                    // Add Scroll Listener after opening
+                    setTimeout(() => {
+                        if (els.scrollBody) {
+                            els.scrollBody.addEventListener('scroll', checkScrollEnd);
+                            // Start Auto Scroll
+                            startAutoScroll();
+                        }
+                    }, 1500); // Wait for scroll open animation
+                }
+            }
+
+            // --- AUTO SCROLL LOGIC (FIXED) ---
+            function startAutoScroll() {
+                // Variable to track precise float position
+                let exactScrollTop = els.scrollBody.scrollTop;
+                const scrollSpeed = 0.5; // Smooth slow speed
+
+                function scrollStep() {
+                    // Stop if celebration triggered or component removed
+                    if (isScrolled || !els.scrollBody) return;
+
+                    const maxScroll = els.scrollBody.scrollHeight - els.scrollBody.clientHeight;
+
+                    // If content fits without scrolling, finish immediately
+                    if (maxScroll <= 0) {
+                        checkScrollEnd();
+                        return;
+                    }
+
+                    if (exactScrollTop < maxScroll) {
+                        exactScrollTop += scrollSpeed;
+                        els.scrollBody.scrollTop = exactScrollTop;
+                        
+                        // Check if we reached the end
+                        checkScrollEnd();
+                        
+                        // Continue loop
+                        if (!isScrolled) {
+                             requestAnimationFrame(scrollStep);
+                        }
+                    }
+                }
+                
+                requestAnimationFrame(scrollStep);
+            }
+
+            // --- SCROLL DETECTION LOGIC ---
+            function checkScrollEnd() {
+                if (isScrolled || !els.scrollBody) return;
+
+                // Calculate scroll position
+                const position = els.scrollBody.scrollTop + els.scrollBody.clientHeight;
+                const height = els.scrollBody.scrollHeight;
+                
+                // If scrolled near bottom (within 50px)
+                // OR if content is smaller than container height (no scroll needed)
+                if (position >= height - 50 || height <= els.scrollBody.clientHeight) {
+                    isScrolled = true;
+                    els.scrollBody.removeEventListener('scroll', checkScrollEnd);
+                    
+                    // Trigger Celebration automatically
+                    triggerCelebration();
+                }
+            }
+
+            function triggerCelebration() {
+                // Hide Scroll
+                if (els.scrollContainer) {
+                    els.scrollContainer.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                    els.scrollContainer.style.opacity = '0';
+                    els.scrollContainer.style.transform = "translate(-50%, -100%) scale(0.8)";
+                    els.scrollContainer.style.pointerEvents = 'none';
+                }
+
+                // Show Celebration UI
+                setTimeout(() => {
+                    if (els.celebrationUI) {
+                        els.celebrationUI.style.opacity = '1';
+                        els.celebrationUI.style.pointerEvents = 'auto';
+                    }
+
+                    // Show Main Kite
+                    if (els.mainKite) {
+                        els.mainKite.style.display = 'block';
+                        els.kiteName.textContent = userName;
+                        
+                        // Animate Kite flying up AND slightly crossing the text
+                        els.mainKite.animate([
+                            { transform: 'translate(-50%, 100vh) rotate(0deg) scale(0.5)' },
+                            { transform: 'translate(-40%, -40%) rotate(15deg) scale(1.1)' } 
+                        ], { duration: 2500, easing: 'cubic-bezier(0.25, 1, 0.5, 1)', fill: 'forwards' });
+                        
+                        // Continuous Float
+                        setTimeout(() => {
+                            els.mainKite.style.animation = 'kiteFloat 4s ease-in-out infinite alternate';
+                        }, 2500);
+                    }
+
+                    // Show Footer
+                    if (els.footerControls) {
+                        els.footerControls.style.display = 'flex';
+                    }
+
+                    // Add MANY kites
+                    createBgKites(20);
+                }, 300);
+            }
+
+            // --- PHASE 4: CELEBRATION (Fallback Click) ---
+            if (els.letsFlyBtn) {
+                els.letsFlyBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if(!isScrolled) triggerCelebration();
+                });
+            }
+
+            // --- BACKGROUND FX ---
+            function createClouds() {
+                const bg = document.querySelector('.mesh-background');
+                if (!bg) return;
+                for(let i=0; i<6; i++) {
+                    const c = document.createElement('div');
+                    c.className = 'cloud';
+                    c.style.width = Math.random() * 100 + 100 + 'px';
+                    c.style.height = '40px';
+                    c.style.top = Math.random() * 60 + '%';
+                    c.style.animationDuration = Math.random() * 20 + 20 + 's';
+                    bg.appendChild(c);
+                }
+            }
+
+            function createBgKites(count) {
+                const colors = ['#FF512F', '#F09819', '#4CD964', '#DD2476', '#3498db'];
+                if (!els.bgKites) return;
+                for(let i=0; i<count; i++) {
+                    const k = document.createElement('div');
+                    k.className = 'bg-kite';
+                    k.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    k.style.left = Math.random() * 100 + 'vw';
+                    k.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    els.bgKites.appendChild(k);
+                }
+            }
+
+            // --- SHARE ---
+            window.shareLink = function() {
+                const baseUrl = window.location.href.split('?')[0];
+                const shareUrl = `${baseUrl}?name=${encodeURIComponent(userName)}`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Happy Makar Sankranti',
+                        text: `Fly a kite with ${userName}!`,
+                        url: shareUrl,
+                    });
+                } else {
+                    navigator.clipboard.writeText(shareUrl).then(() => alert("Link copied!"));
+                }
+            }
+        });
 
         // Extra Styles
         const style = document.createElement('style');
         style.innerHTML = `
             @keyframes kiteFloat {
-                0% { transform: translate(-50%, -50%) rotate(5deg) translateY(0); }
-                100% { transform: translate(-50%, -50%) rotate(-5deg) translateY(-20px); }
+                0% { transform: translate(-40%, -40%) rotate(15deg) translateY(0); }
+                100% { transform: translate(-40%, -40%) rotate(5deg) translateY(-20px); }
             }
         `;
         document.head.appendChild(style);
