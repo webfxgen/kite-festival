@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Royal Makar Sankranti Festival</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Outfit:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE SETTINGS --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #1a0b2e; /* Deep Royal Purple Base */
+            font-family: 'Outfit', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: none;
+        }
+
+        /* --- LUXURY MESH BACKGROUND --- */
+        .mesh-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(at 0% 0%, hsla(38, 90%, 50%, 0.4) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(340, 82%, 52%, 0.4) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(260, 50%, 30%, 0.5) 0, transparent 50%), 
+                radial-gradient(at 0% 100%, hsla(200, 80%, 40%, 0.3) 0, transparent 50%);
+            background-size: 150% 150%;
+            animation: gradientMove 20s ease infinite;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        /* Subtle Gold Dust Overlay */
+        .mesh-background::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD700' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- UI LAYERS --- */
+        #ui-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            padding: 20px;
+        }
+
+        /* Premium Glass Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 215, 0, 0.3); /* Subtle Gold Border */
+            border-top: 1px solid rgba(255, 215, 0, 0.5);
+            border-radius: 40px;
+            padding: clamp(2rem, 6vw, 3.5rem);
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
+            pointer-events: auto;
+            box-shadow: 
+                0 30px 60px -12px rgba(0,0,0,0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            transform: translateY(0);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Shimmer Effect on Card */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transform: skewX(-25deg);
+            animation: cardShimmer 6s infinite;
+        }
+        
+        @keyframes cardShimmer {
+            0%, 80% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 12vw, 5rem);
+            font-weight: 800;
+            color: transparent;
+            background: linear-gradient(to bottom, #FFD700 20%, #FDB931 50%, #C08518 80%);
+            -webkit-background-clip: text;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        
+        .subtitle-text {
+            font-family: 'Outfit', sans-serif;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Premium Input */
+        input {
+            width: 100%;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0 2.5rem;
+            color: #FFD700;
+            transition: all 0.4s ease;
+            outline: none;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        input:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        /* --- LIQUID GOLD BUTTON --- */
+        .btn-premium {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            background-size: 200% auto;
+            border-radius: 9999px;
+            color: #3e2723;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(191, 149, 63, 0.4);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: goldFlow 4s linear infinite;
+        }
+        
+        @keyframes goldFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(191, 149, 63, 0.6);
+        }
+        
+        .btn-start {
+            width: 100%;
+            height: 80px;
+            font-size: 1.5rem;
+        }
+
+        /* --- INTERACTIVE KITE --- */
+        #main-kite-container {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(220px, 45vw, 380px);
+            aspect-ratio: 4/5;
+            z-index: 30;
+            filter: drop-shadow(20px 40px 30px rgba(0,0,0,0.5));
+            transition: top 2.5s cubic-bezier(0.19, 1, 0.22, 1), transform 0.1s;
+            pointer-events: auto;
+        }
+
+        .kite-name {
+            position: absolute;
+            top: 42%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            width: 80%;
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: #3e2723;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+            pointer-events: none;
+        }
+
+        /* --- CELEBRATION MODE --- */
+        #celebration-ui {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 3rem 1.5rem;
+        }
+
+        .wish-container {
+            text-align: center;
+            margin-top: 5vh;
+        }
+
+        .wish-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 13vw, 7.5rem);
+            line-height: 1;
+            font-weight: 900;
+            /* Animated Royal Gradient */
+            background: linear-gradient(
+                to right, 
+                #FFD700, #FDB931, #FFFFFF, #FDB931, #FFD700
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: textShine 4s linear infinite;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        }
+
+        @keyframes textShine { to { background-position: 200% center; } }
+
+        .wish-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transform: rotate(-1deg);
+        }
+
+        .action-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .action-buttons-container { flex-direction: row; }
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        /* --- EXTRAS --- */
+        #string-canvas { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+        #bg-elements { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+        
+        .kite-bg { position: absolute; animation: kiteFloat ease-in-out infinite; opacity: 0.6; }
+        @keyframes kiteFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        /* Gold Confetti */
+        .confetti { 
+            position: absolute; 
+            width: 8px; height: 16px; 
+            background: #FFD700;
+            animation: fall linear forwards; 
+        }
+        @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+
+        /* Share Modal */
+        #share-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 100;
+            display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.4s;
+        }
+        #share-modal.active { opacity: 1; }
+        
+        .share-box {
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            width: 90%; max-width: 400px; padding: 2.5rem;
+            border-radius: 30px; text-align: center; transform: scale(0.9); transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+        #share-modal.active .share-box { transform: scale(1); }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. Background Atmosphere -->
+    <div class="mesh-background"></div>
+
+    <!-- 2. Animated Elements Layer -->
+    <div id="bg-elements"></div>
+
+    <!-- 3. Physics String -->
+    <canvas id="string-canvas"></canvas>
+
+    <!-- 4. UI Interface -->
+    <div id="ui-layer">
+        
+        <!-- INITIAL CARD -->
+        <div id="setup-card" class="glass-card">
+            <div class="subtitle-text">Festival of Harvest</div>
+            <h1 class="title-text">Makar<br>Sankranti</h1>
+            
+            <input type="text" id="nameInput" placeholder="Your Name" autocomplete="off">
+            
+            <button id="launchBtn" class="btn-premium btn-start">
+                Start Celebration
+            </button>
+        </div>
+
+        <!-- CELEBRATION UI (Hidden) -->
+        <div id="celebration-ui">
+            <!-- Top Section: Wish -->
+            <div class="wish-container">
+                <h1 class="wish-heading">Happy<br>Sankranti</h1>
+                
+                <div class="wish-card">
+                    <p class="text-gray-200 font-['Playfair_Display'] text-xl leading-relaxed italic">
+                        "May the sun radiate peace, prosperity, and happiness in your life today and always."
+                    </p>
+                    <p class="text-yellow-400 font-bold mt-4 font-['Outfit'] tracking-widest uppercase text-sm">Til Gul Ghya, God God Bola!</p>
+                </div>
+            </div>
+
+            <!-- Bottom Section: Actions -->
+            <div class="action-buttons-container">
+                <button class="btn-premium btn-action" onclick="openShare()">
+                    Share Joy 📤
+                </button>
+                <button class="btn-premium btn-action" onclick="resetApp()">
+                    Fly Again 🪁
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 5. Main Kite (Interactive) -->
+    <div id="main-kite-container">
+        <!-- Detailed Royal Kite Vector -->
+        <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-2xl">
+            <defs>
+                <linearGradient id="royalSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" /> <!-- Gold -->
+                    <stop offset="50%" style="stop-color:#FF8C00;stop-opacity:1" /> <!-- Deep Orange -->
+                    <stop offset="100%" style="stop-color:#B22222;stop-opacity:1" /> <!-- Royal Red -->
+                </linearGradient>
+                <filter id="goldGlow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+            </defs>
+            
+            <!-- Tail -->
+            <path d="M150,320 L120,380 L180,380 Z" fill="#FFD700" stroke="#B8860B" stroke-width="1"/>
+            
+            <!-- Main Diamond -->
+            <path d="M150,20 L280,180 L150,320 L20,180 Z" fill="url(#royalSheen)" stroke="#FFF8DC" stroke-width="3"/>
+            
+            <!-- Intricate Pattern (Golden Mandala Hint) -->
+            <path d="M150,50 L250,180 L150,290 L50,180 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <circle cx="150" cy="180" r="30" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+            
+            <!-- Cross Spars -->
+            <path d="M150,20 L150,320" stroke="rgba(255,255,255,0.8)" stroke-width="4"/>
+            <path d="M20,180 Q150,100 280,180" stroke="rgba(255,255,255,0.8)" stroke-width="4"/>
+        </svg>
+        
+        <div id="kite-name-display" class="kite-name">Name</div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal">
+        <div class="share-box">
+            <h2 class="text-3xl font-bold mb-8 text-white font-['Playfair_Display']">Spread the Cheer</h2>
+            <div class="flex flex-col gap-4">
+                <button onclick="shareLink('whatsapp')" class="w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-700 text-white font-bold hover:shadow-lg transition flex items-center justify-center gap-3 font-['Outfit'] border border-white/10">
+                    WhatsApp
+                </button>
+                <button onclick="shareLink('facebook')" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-800 text-white font-bold hover:shadow-lg transition flex items-center justify-center gap-3 font-['Outfit'] border border-white/10">
+                    Facebook
+                </button>
+                <button onclick="shareLink('copy')" class="w-full py-4 rounded-xl bg-white/10 text-white font-bold hover:bg-white/20 transition border border-white/20 font-['Outfit']">
+                    Copy Link
+                </button>
+            </div>
+            <button onclick="closeShare()" class="mt-8 text-gray-400 hover:text-white underline text-sm tracking-widest uppercase">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIG & STATE ---
+        const state = {
+            isFlying: false,
+            mouseX: window.innerWidth / 2,
+            name: "Friend"
+        };
+
+        const els = {
+            canvas: document.getElementById('string-canvas'),
+            ctx: document.getElementById('string-canvas').getContext('2d'),
+            kite: document.getElementById('main-kite-container'),
+            nameDisplay: document.getElementById('kite-name-display'),
+            nameInput: document.getElementById('nameInput'),
+            setupCard: document.getElementById('setup-card'),
+            celebrationUI: document.getElementById('celebration-ui'),
+            bgLayer: document.getElementById('bg-elements')
+        };
+
+        // --- INIT ---
+        function init() {
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Name Sync
+            els.nameInput.addEventListener('input', (e) => {
+                state.name = e.target.value || "Friend";
+                els.nameDisplay.textContent = state.name;
+            });
+
+            // Launch Event
+            document.getElementById('launchBtn').addEventListener('click', launchKite);
+
+            // Interaction Tracking
+            document.addEventListener('mousemove', (e) => state.mouseX = e.clientX);
+            document.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                state.mouseX = e.touches[0].clientX;
+            }, { passive: false });
+
+            // Background Elements
+            createBackgroundKites();
+            
+            // Start Loop
+            requestAnimationFrame(renderLoop);
+            
+            // Check URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedName = urlParams.get('name');
+            if(sharedName) {
+                state.name = sharedName;
+                els.nameInput.value = sharedName;
+                els.nameDisplay.textContent = sharedName;
+            }
+        }
+
+        function resizeCanvas() {
+            els.canvas.width = window.innerWidth;
+            els.canvas.height = window.innerHeight;
+        }
+
+        // --- ANIMATION LOOP ---
+        function renderLoop() {
+            els.ctx.clearRect(0, 0, els.canvas.width, els.canvas.height);
+
+            // 1. Kite Physics (Visual Only)
+            const kiteRect = els.kite.getBoundingClientRect();
+            const kiteX = kiteRect.left + kiteRect.width / 2;
+            const kiteY = kiteRect.top + kiteRect.height;
+            const anchorX = window.innerWidth / 2;
+            const anchorY = window.innerHeight;
+
+            // Sway Effect
+            if(!state.isFlying) {
+                // Grounded: Gentle hover following mouse
+                const sway = (state.mouseX - window.innerWidth/2) * 0.05;
+                els.kite.style.transform = `translate(-50%, -50%) translateX(${sway}px) rotate(${sway * 0.1}deg)`;
+                
+                // Draw Slack String
+                drawManja(kiteX, kiteY - 60, anchorX, anchorY, 80);
+            } else {
+                // Flying: Auto sway
+                drawManja(kiteX, kiteY - 60, anchorX, anchorY, 0); // Tight string
+            }
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        function drawManja(x1, y1, x2, y2, slack) {
+            const ctx = els.ctx;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            
+            const cpX = (x1 + x2) / 2;
+            const cpY = (y1 + y2) / 2 + slack;
+            
+            ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
+            ctx.lineWidth = 1.5;
+            ctx.shadowBlur = 4;
+            ctx.shadowColor = "rgba(255,255,255,0.4)";
+            ctx.stroke();
+        }
+
+        // --- ACTIONS ---
+        function launchKite() {
+            state.isFlying = true;
+            
+            // 1. Hide Setup
+            els.setupCard.style.opacity = '0';
+            els.setupCard.style.pointerEvents = 'none';
+            els.setupCard.style.transform = 'translateY(50px) scale(0.9)';
+            
+            // 2. Fly Kite Up
+            els.kite.style.transition = "top 3s cubic-bezier(0.19, 1, 0.22, 1), transform 1s";
+            els.kite.style.top = "18%"; 
+            
+            // 3. Show Celebration
+            setTimeout(() => {
+                els.celebrationUI.style.opacity = '1';
+                els.celebrationUI.style.pointerEvents = 'auto';
+                fireConfetti();
+                
+                // Add idle flying animation
+                els.kite.style.animation = "floatInAir 4s ease-in-out infinite alternate";
+            }, 1200);
+        }
+
+        function resetApp() {
+            state.isFlying = false;
+            
+            els.celebrationUI.style.opacity = '0';
+            els.celebrationUI.style.pointerEvents = 'none';
+            
+            els.kite.style.animation = "none";
+            els.kite.style.top = "50%";
+            els.kite.style.transform = "translate(-50%, -50%)";
+            
+            setTimeout(() => {
+                els.setupCard.style.opacity = '1';
+                els.setupCard.style.pointerEvents = 'auto';
+                els.setupCard.style.transform = 'translateY(0) scale(1)';
+            }, 1000);
+            
+            els.nameInput.value = "";
+            state.name = "Friend";
+            els.nameDisplay.textContent = "Friend";
+        }
+
+        // --- BACKGROUND ELEMENTS ---
+        function createBackgroundKites() {
+            const colors = ['#FFD700', '#FF4500', '#FF1493', '#00BFFF'];
+            
+            for(let i=0; i<8; i++) {
+                const k = document.createElement('div');
+                k.classList.add('kite-bg');
+                const size = Math.random() * 40 + 30;
+                k.style.width = size + 'px';
+                k.style.height = size + 'px';
+                k.style.background = colors[Math.floor(Math.random() * colors.length)];
+                k.style.left = Math.random() * 100 + '%';
+                k.style.top = Math.random() * 60 + '%';
+                k.style.transform = 'rotate(45deg)';
+                k.style.borderRadius = '2px 20px 2px 20px';
+                k.style.boxShadow = "0 0 15px rgba(255,255,255,0.2)";
+                
+                const duration = Math.random() * 6 + 4;
+                k.style.animationDuration = duration + 's';
+                k.style.animationDelay = -Math.random() * 5 + 's';
+                
+                els.bgLayer.appendChild(k);
+            }
+        }
+
+        function fireConfetti() {
+            const colors = ['#FFD700', '#FF8C00', '#FFFFFF'];
+            for(let i=0; i<80; i++) {
+                const c = document.createElement('div');
+                c.classList.add('confetti');
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.top = -10 + 'px';
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.animationDuration = Math.random() * 3 + 2 + 's';
+                c.style.width = Math.random() * 8 + 4 + 'px';
+                c.style.height = c.style.width;
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 5000);
+            }
+        }
+
+        // --- SHARING ---
+        function openShare() {
+            const modal = document.getElementById('share-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeShare() {
+            const modal = document.getElementById('share-modal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        window.shareLink = function(platform) {
+            const baseUrl = window.location.href.split('?')[0];
+            const shareUrl = `${baseUrl}?name=${encodeURIComponent(state.name)}`;
+            const text = `Fly a kite with me! Happy Makar Sankranti from ${state.name}`;
+            
+            if (platform === 'whatsapp') window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + shareUrl)}`);
+            if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`);
+            if (platform === 'copy') {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert("Link copied!");
+                    closeShare();
+                });
+            }
+        }
+
+        // Add extra CSS
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes floatInAir {
+                0% { transform: translate(-50%, 0) rotate(-3deg); }
+                100% { transform: translate(-50%, -20px) rotate(3deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Run
+        init();
+
+    </script>
+</body>
+</html>
