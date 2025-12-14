@@ -229,25 +229,43 @@
         .scroll-roller::before { left: -15px; }
         .scroll-roller::after { right: -15px; }
 
-        .roller-top { top: 0; transition: top 1.5s cubic-bezier(0.45, 0, 0.55, 1); }
-        .roller-bottom { bottom: 0; transition: bottom 1.5s cubic-bezier(0.45, 0, 0.55, 1); }
+        /* FIX: Increased z-index for roller-top so text is visible */
+        .roller-top { 
+            top: 0; 
+            transition: top 1.5s cubic-bezier(0.45, 0, 0.55, 1); 
+            z-index: 66; /* Higher than bottom roller (65) */
+        }
+        .roller-bottom { 
+            bottom: 0; 
+            transition: bottom 1.5s cubic-bezier(0.45, 0, 0.55, 1); 
+            z-index: 65;
+        }
 
-        /* Instruction Text Animation */
+        /* Instruction Text Animation - Made Brighter/Bigger */
         .instruction-text {
             display: inline-block;
+            font-size: 1.1rem; /* Increased size */
+            color: #ffffff; /* Pure white */
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             animation: glowPulse 1.5s ease-in-out infinite alternate;
+            /* Stroke to ensure visibility against wood texture */
+            -webkit-text-stroke: 0.5px rgba(0,0,0,0.5); 
+            pointer-events: none; /* Let clicks pass through to roller */
         }
 
         @keyframes glowPulse {
             from { 
                 text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
-                transform: scale(1);
                 opacity: 0.9;
+                transform: scale(1);
             }
             to { 
-                text-shadow: 0 0 20px rgba(255, 236, 179, 1), 0 0 10px rgba(255, 255, 255, 0.8); 
-                transform: scale(1.1);
+                text-shadow: 0 0 15px rgba(255, 215, 0, 1), 0 0 25px rgba(255, 165, 0, 0.8); 
                 opacity: 1;
+                transform: scale(1.05);
             }
         }
 
@@ -602,11 +620,24 @@
             createClouds();
             createBgKites(5); 
             
-            // Check URL for name
+            // Check URL for name - DIRECT START LOGIC
             const urlParams = new URLSearchParams(window.location.search);
             const sharedName = urlParams.get('name');
-            if(sharedName && els.nameInput) {
-                els.nameInput.value = sharedName;
+            
+            if(sharedName) {
+                userName = decodeURIComponent(sharedName);
+                if(els.nameInput) els.nameInput.value = userName;
+                
+                // Skip setup, jump to scroll
+                if(els.setupCard) els.setupCard.style.display = 'none';
+                
+                setTimeout(() => {
+                    if(els.scrollContainer) els.scrollContainer.style.transform = "translate(-50%, -50%) scale(1)";
+                    if(els.scrollSignature) els.scrollSignature.textContent = `From ${userName}`;
+                    
+                    // Auto Open Timer (2 Seconds for shared link - faster)
+                    autoOpenTimer = setTimeout(openScroll, 2000);
+                }, 100);
             }
 
             // --- PHASE 1: INPUT & FLY ---
@@ -661,7 +692,7 @@
                 if (els.scrollContainer && !els.scrollContainer.classList.contains('open')) {
                     els.scrollContainer.classList.add('open');
                     const topRoller = document.querySelector('.roller-top');
-                    if (topRoller) topRoller.innerHTML = ""; // Clear text/html
+                    if (topRoller) topRoller.innerHTML = ""; // Clear instruction text
                     
                     // Add Scroll Listener after opening
                     setTimeout(() => {
