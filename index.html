@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Royal Makar Sankranti Festival</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Outfit:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Outfit:wght@300;500;700&family=Great+Vibes&family=Rozha+One&family=Cinzel:wght@700&display=swap" rel="stylesheet">
     <style>
         /* --- CORE SETTINGS --- */
         body, html {
@@ -14,7 +14,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #1a0b2e; /* Deep Royal Purple Base */
+            background-color: #1a0b2e; 
             font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent;
             touch-action: none;
@@ -25,30 +25,23 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(at 0% 0%, hsla(38, 90%, 50%, 0.4) 0, transparent 50%), 
-                radial-gradient(at 100% 0%, hsla(340, 82%, 52%, 0.4) 0, transparent 50%), 
-                radial-gradient(at 100% 100%, hsla(260, 50%, 30%, 0.5) 0, transparent 50%), 
-                radial-gradient(at 0% 100%, hsla(200, 80%, 40%, 0.3) 0, transparent 50%);
-            background-size: 150% 150%;
-            animation: gradientMove 20s ease infinite;
+            background: linear-gradient(135deg, #87CEEB 0%, #00BFFF 50%, #1E90FF 100%); /* Bright Sky */
             z-index: 0;
             overflow: hidden;
         }
         
-        /* Subtle Gold Dust Overlay */
-        .mesh-background::after {
-            content: "";
+        /* Moving Clouds */
+        .cloud {
             position: absolute;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD700' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.3;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            filter: blur(8px);
+            animation: floatCloud linear infinite;
+            z-index: 1;
         }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes floatCloud {
+            from { transform: translateX(100vw); }
+            to { transform: translateX(-300px); }
         }
 
         /* --- UI LAYERS --- */
@@ -66,155 +59,186 @@
 
         /* Premium Glass Card */
         .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 215, 0, 0.3); /* Subtle Gold Border */
-            border-top: 1px solid rgba(255, 215, 0, 0.5);
-            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 30px;
             padding: clamp(2rem, 6vw, 3.5rem);
             width: 90%;
-            max-width: 550px;
+            max-width: 500px;
             text-align: center;
             pointer-events: auto;
-            box-shadow: 
-                0 30px 60px -12px rgba(0,0,0,0.5),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             transform: translateY(0);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            overflow: hidden;
-        }
-        
-        /* Shimmer Effect on Card */
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.1), transparent);
-            transform: skewX(-25deg);
-            animation: cardShimmer 6s infinite;
-        }
-        
-        @keyframes cardShimmer {
-            0%, 80% { left: -100%; }
-            100% { left: 200%; }
         }
 
         .title-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 12vw, 5rem);
-            font-weight: 800;
-            color: transparent;
-            background: linear-gradient(to bottom, #FFD700 20%, #FDB931 50%, #C08518 80%);
-            -webkit-background-clip: text;
+            font-family: 'Rozha One', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            color: #1a365d;
             margin-bottom: 0.5rem;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-            letter-spacing: -1px;
+            text-shadow: 0 2px 0 rgba(255,255,255,0.5);
             line-height: 1.1;
         }
-        
-        .subtitle-text {
-            font-family: 'Outfit', sans-serif;
-            color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-bottom: 2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
 
-        /* Premium Input */
         input {
             width: 100%;
             padding: 1.5rem;
             border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            background: rgba(0, 0, 0, 0.2);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            border: 2px solid #fff;
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
             text-align: center;
             margin: 1.5rem 0 2.5rem;
-            color: #FFD700;
-            transition: all 0.4s ease;
+            color: #1a365d;
+            transition: all 0.3s ease;
             outline: none;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
-        }
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 300;
         }
         input:focus {
-            background: rgba(0, 0, 0, 0.4);
-            border-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            background: #fff;
+            border-color: #FF512F;
+            box-shadow: 0 0 15px rgba(255, 81, 47, 0.3);
         }
 
-        /* --- LIQUID GOLD BUTTON --- */
-        .btn-premium {
-            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            background-size: 200% auto;
+        /* --- MULTI-COLOR GRADIENT BUTTON --- */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-capsule {
+            background: linear-gradient(90deg, #FFC107, #FF9800, #F57C00, #FF5722, #e91e63, #FFC107);
+            background-size: 300% 300%;
+            animation: gradient-shift 3s ease infinite;
             border-radius: 9999px;
-            color: #3e2723;
+            color: white;
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
             border: none;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(191, 149, 63, 0.4);
-            transition: all 0.4s ease;
+            padding: 1.2rem 3rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: goldFlow 4s linear infinite;
-        }
-        
-        @keyframes goldFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .btn-premium:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(191, 149, 63, 0.6);
-        }
-        
-        .btn-start {
+            box-shadow: 0 10px 25px rgba(221, 36, 118, 0.4);
+            transition: transform 0.2s;
             width: 100%;
-            height: 80px;
-            font-size: 1.5rem;
         }
+        .btn-capsule:hover { transform: scale(1.05); }
 
-        /* --- INTERACTIVE KITE --- */
-        #main-kite-container {
+        /* --- ANCIENT SCROLL DESIGN --- */
+        #scroll-container {
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: clamp(220px, 45vw, 380px);
-            aspect-ratio: 4/5;
-            z-index: 30;
-            filter: drop-shadow(20px 40px 30px rgba(0,0,0,0.5));
-            transition: top 2.5s cubic-bezier(0.19, 1, 0.22, 1), transform 0.1s;
+            transform: translate(-50%, -50%) scale(0);
+            width: 320px; /* Width of the paper */
+            height: 60px; /* Start closed */
+            z-index: 60;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 1.5s cubic-bezier(0.45, 0, 0.55, 1);
             pointer-events: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .scroll-body {
+            width: 100%;
+            height: 100%;
+            /* Aged Parchment Texture */
+            background-color: #f4e4bc;
+            background-image: 
+                linear-gradient(to right, rgba(160, 82, 45, 0.1), transparent 5%, transparent 95%, rgba(160, 82, 45, 0.1)),
+                repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(160, 82, 45, 0.03) 1px, rgba(160, 82, 45, 0.03) 2px);
+            /* Internal shadows to look rolled */
+            box-shadow: 
+                inset 0 15px 30px -10px rgba(0,0,0,0.7),
+                inset 0 -15px 30px -10px rgba(0,0,0,0.7),
+                0 20px 50px rgba(0,0,0,0.5);
+            border-left: 1px dashed rgba(139, 69, 19, 0.3);
+            border-right: 1px dashed rgba(139, 69, 19, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 25px;
+            opacity: 0; 
+            transition: opacity 0.5s;
         }
 
-        .kite-name {
+        /* Decorative Corners inside scroll */
+        .scroll-body::before {
+            content: "❧"; position: absolute; top: 10px; left: 10px;
+            font-size: 2rem; color: rgba(139, 69, 19, 0.2); transform: rotate(-45deg);
+        }
+        .scroll-body::after {
+            content: "❧"; position: absolute; bottom: 10px; right: 10px;
+            font-size: 2rem; color: rgba(139, 69, 19, 0.2); transform: rotate(135deg);
+        }
+
+        /* 3D ROLLERS */
+        .scroll-roller {
             position: absolute;
-            top: 42%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            width: 80%;
-            text-align: center;
+            left: 50%; transform: translateX(-50%);
+            width: 380px; /* Wider than paper */
+            height: 45px;
+            /* Realistic Dark Wood / Metal Gradient */
+            background: linear-gradient(to bottom, #3e2723, #5d4037 20%, #8d6e63 40%, #5d4037 60%, #3e2723 90%, #1a100e);
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            z-index: 65;
+            display: flex; align-items: center; justify-content: center;
+            color: #ffecb3; font-weight: 700; font-family: 'Cinzel', serif; letter-spacing: 2px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            cursor: pointer;
+            border: 1px solid #281815;
+        }
+
+        /* Finials (Gold/Wood End Caps) */
+        .scroll-roller::before, .scroll-roller::after {
+            content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+            width: 25px; height: 60px; /* Tall ornaments */
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b 60%, #4e342e 100%);
+            border-radius: 8px;
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.5), 2px 4px 10px rgba(0,0,0,0.5);
+            border: 1px solid #5d4037;
+            z-index: -1;
+        }
+        .scroll-roller::before { left: -15px; }
+        .scroll-roller::after { right: -15px; }
+
+        /* Animation States */
+        .roller-top { top: 0; transition: top 1.5s cubic-bezier(0.45, 0, 0.55, 1); }
+        .roller-bottom { bottom: 0; transition: bottom 1.5s cubic-bezier(0.45, 0, 0.55, 1); }
+
+        /* OPEN STATE HEIGHT */
+        #scroll-container.open { height: 600px; }
+        #scroll-container.open .roller-top { top: -22px; }
+        #scroll-container.open .roller-bottom { bottom: -22px; }
+        #scroll-container.open .scroll-body { opacity: 1; }
+
+        .sender-text {
             font-family: 'Great Vibes', cursive;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            color: #3e2723;
-            text-shadow: 0 1px 1px rgba(255,255,255,0.4);
-            pointer-events: none;
+            font-size: 1.8rem;
+            color: #8B4513; /* Ink color */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .scroll-message {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            color: #3e2723; /* Dark Brown Ink */
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
         /* --- CELEBRATION MODE --- */
@@ -226,437 +250,303 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 3rem 1.5rem;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 70;
         }
 
-        .wish-container {
+        /* Animated Rainbow Text */
+        .rainbow-text {
+            font-family: 'Rozha One', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            line-height: 1.1;
             text-align: center;
-            margin-top: 5vh;
-        }
-
-        .wish-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.5rem, 13vw, 7.5rem);
-            line-height: 1;
-            font-weight: 900;
-            /* Animated Royal Gradient */
-            background: linear-gradient(
-                to right, 
-                #FFD700, #FDB931, #FFFFFF, #FDB931, #FFD700
-            );
+            background: linear-gradient(to right, #FF00FF, #00FFFF, #00FF00, #FFFF00, #FF0000, #FF00FF);
             background-size: 200% auto;
             -webkit-background-clip: text;
-            color: transparent;
-            animation: textShine 4s linear infinite;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+            background-clip: text;
+            color: transparent !important;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1.5px #ffffff;
+            animation: gradient-flow 3s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
+            font-weight: 900;
         }
+        @keyframes gradient-flow { to { background-position: 200% center; } }
 
-        @keyframes textShine { to { background-position: 200% center; } }
-
-        .wish-card {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            margin-top: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transform: rotate(-1deg);
+        /* Controls */
+        .controls-container {
+            position: absolute; bottom: 30px; width: 100%;
+            display: flex; justify-content: center; gap: 20px; z-index: 80;
         }
-
-        .action-buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .action-buttons-container { flex-direction: row; }
-        }
-
-        .btn-action {
-            flex: 1;
-            padding: 1.5rem;
-            font-size: 1.4rem;
-        }
-
-        /* --- EXTRAS --- */
-        #string-canvas { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
-        #bg-elements { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
         
-        .kite-bg { position: absolute; animation: kiteFloat ease-in-out infinite; opacity: 0.6; }
-        @keyframes kiteFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+        .control-btn {
+            background: rgba(255,255,255,0.9); padding: 12px 25px; border-radius: 50px;
+            color: #1a365d; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer; transition: transform 0.2s; border: 2px solid transparent;
+            font-size: 1rem; display: flex; align-items: center; gap: 8px;
+        }
+        .control-btn:hover { transform: scale(1.05); color: #FF512F; }
 
-        /* Gold Confetti */
-        .confetti { 
-            position: absolute; 
-            width: 8px; height: 16px; 
-            background: #FFD700;
-            animation: fall linear forwards; 
+        /* Background Kites */
+        .bg-kite {
+            position: absolute; width: 40px; height: 60px; background: #FF512F;
+            clip-path: polygon(50% 0%, 100% 40%, 50% 100%, 0% 40%); opacity: 0.8;
+            animation: kiteFly linear infinite;
         }
-        @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+        @keyframes kiteFly {
+            from { transform: translateY(110vh) translateX(0) rotate(10deg); }
+            to { transform: translateY(-10vh) translateX(50px) rotate(-10deg); }
+        }
 
-        /* Share Modal */
-        #share-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 100;
-            display: none; align-items: center; justify-content: center; opacity: 0; transition: 0.4s;
+        /* Main Interactive Kite */
+        #main-kite {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 250px; height: 350px; z-index: 30; transition: top 2s ease-in-out;
+            display: none; 
         }
-        #share-modal.active { opacity: 1; }
-        
-        .share-box {
-            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-            width: 90%; max-width: 400px; padding: 2.5rem;
-            border-radius: 30px; text-align: center; transform: scale(0.9); transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-        }
-        #share-modal.active .share-box { transform: scale(1); }
 
     </style>
 </head>
 <body>
 
     <!-- 1. Background Atmosphere -->
-    <div class="mesh-background"></div>
+    <div class="mesh-background">
+        <!-- Clouds generated via JS -->
+    </div>
+    
+    <!-- Background Flying Kites Layer -->
+    <div id="bg-kites-layer"></div>
 
-    <!-- 2. Animated Elements Layer -->
-    <div id="bg-elements"></div>
-
-    <!-- 3. Physics String -->
-    <canvas id="string-canvas"></canvas>
-
-    <!-- 4. UI Interface -->
+    <!-- 2. UI Interface -->
     <div id="ui-layer">
         
-        <!-- INITIAL CARD -->
+        <!-- INITIAL SETUP CARD -->
         <div id="setup-card" class="glass-card">
-            <div class="subtitle-text">Festival of Harvest</div>
-            <h1 class="title-text">Makar<br>Sankranti</h1>
+            <h1 class="title-text">Makar Sankranti</h1>
+            <p class="text-gray-700 font-medium mb-6 font-['Poppins']">Fly your dreams high in the sky!</p>
             
-            <input type="text" id="nameInput" placeholder="Your Name" autocomplete="off">
+            <input type="text" id="nameInput" placeholder="Enter Your Name" autocomplete="off">
             
-            <button id="launchBtn" class="btn-premium btn-start">
-                Start Celebration
+            <button id="flyBtn" class="btn-capsule">
+                Fly Kite 🪁
             </button>
         </div>
 
-        <!-- CELEBRATION UI (Hidden) -->
-        <div id="celebration-ui">
-            <!-- Top Section: Wish -->
-            <div class="wish-container">
-                <h1 class="wish-heading">Happy<br>Sankranti</h1>
-                
-                <div class="wish-card">
-                    <p class="text-gray-200 font-['Playfair_Display'] text-xl leading-relaxed italic">
-                        "May the sun radiate peace, prosperity, and happiness in your life today and always."
-                    </p>
-                    <p class="text-yellow-400 font-bold mt-4 font-['Outfit'] tracking-widest uppercase text-sm">Til Gul Ghya, God God Bola!</p>
-                </div>
-            </div>
-
-            <!-- Bottom Section: Actions -->
-            <div class="action-buttons-container">
-                <button class="btn-premium btn-action" onclick="openShare()">
-                    Share Joy 📤
-                </button>
-                <button class="btn-premium btn-action" onclick="resetApp()">
-                    Fly Again 🪁
-                </button>
-            </div>
-        </div>
-
     </div>
 
-    <!-- 5. Main Kite (Interactive) -->
-    <div id="main-kite-container">
-        <!-- Detailed Royal Kite Vector -->
-        <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-2xl">
-            <defs>
-                <linearGradient id="royalSheen" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" /> <!-- Gold -->
-                    <stop offset="50%" style="stop-color:#FF8C00;stop-opacity:1" /> <!-- Deep Orange -->
-                    <stop offset="100%" style="stop-color:#B22222;stop-opacity:1" /> <!-- Royal Red -->
-                </linearGradient>
-                <filter id="goldGlow">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-            </defs>
-            
-            <!-- Tail -->
-            <path d="M150,320 L120,380 L180,380 Z" fill="#FFD700" stroke="#B8860B" stroke-width="1"/>
-            
-            <!-- Main Diamond -->
-            <path d="M150,20 L280,180 L150,320 L20,180 Z" fill="url(#royalSheen)" stroke="#FFF8DC" stroke-width="3"/>
-            
-            <!-- Intricate Pattern (Golden Mandala Hint) -->
-            <path d="M150,50 L250,180 L150,290 L50,180 Z" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
-            <circle cx="150" cy="180" r="30" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
-            
-            <!-- Cross Spars -->
-            <path d="M150,20 L150,320" stroke="rgba(255,255,255,0.8)" stroke-width="4"/>
-            <path d="M20,180 Q150,100 280,180" stroke="rgba(255,255,255,0.8)" stroke-width="4"/>
-        </svg>
+    <!-- 3. ANCIENT SCROLL (Replaces Envelope) -->
+    <div id="scroll-container">
+        <!-- Top Roller -->
+        <div class="scroll-roller roller-top">Tap to Unroll</div>
         
-        <div id="kite-name-display" class="kite-name">Name</div>
+        <!-- Scroll Paper Content -->
+        <div class="scroll-body">
+            <!-- Decorative Separator -->
+            <div class="w-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#8B4513] to-transparent mb-6 opacity-60"></div>
+            
+            <p class="sender-text" id="quotes-header">
+                "Sky full of Kites, Heart full of Joy"
+            </p>
+            
+            <p class="scroll-message">
+                "May the sun radiate peace, prosperity, and happiness in your life.<br>
+                <span class="text-red-700">Til Gul Ghya, God God Bola!</span>"
+            </p>
+            
+            <!-- Signature -->
+            <p id="scroll-signature" style="font-family: 'Great Vibes', cursive; font-size: 1.5rem; color: #8B4513; margin-top: auto; margin-bottom: 20px;">
+                From Friend
+            </p>
+            
+            <!-- Inner Action Button -->
+            <button id="letsFlyBtn" class="btn-capsule" style="padding: 1rem 2rem; font-size: 1.1rem; width: auto; box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3); background: linear-gradient(90deg, #d35400, #e67e22, #d35400);">
+                Let's Fly Kites! 🪁
+            </button>
+        </div>
+        
+        <!-- Bottom Roller -->
+        <div class="scroll-roller roller-bottom"></div>
     </div>
 
-    <!-- Share Modal -->
-    <div id="share-modal">
-        <div class="share-box">
-            <h2 class="text-3xl font-bold mb-8 text-white font-['Playfair_Display']">Spread the Cheer</h2>
-            <div class="flex flex-col gap-4">
-                <button onclick="shareLink('whatsapp')" class="w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-700 text-white font-bold hover:shadow-lg transition flex items-center justify-center gap-3 font-['Outfit'] border border-white/10">
-                    WhatsApp
-                </button>
-                <button onclick="shareLink('facebook')" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-800 text-white font-bold hover:shadow-lg transition flex items-center justify-center gap-3 font-['Outfit'] border border-white/10">
-                    Facebook
-                </button>
-                <button onclick="shareLink('copy')" class="w-full py-4 rounded-xl bg-white/10 text-white font-bold hover:bg-white/20 transition border border-white/20 font-['Outfit']">
-                    Copy Link
-                </button>
-            </div>
-            <button onclick="closeShare()" class="mt-8 text-gray-400 hover:text-white underline text-sm tracking-widest uppercase">Close</button>
+    <!-- 4. CELEBRATION UI (Hidden) -->
+    <div id="celebration-ui">
+        <h1 class="rainbow-text">Happy Makar<br>Sankranti</h1>
+        
+        <!-- Main Kite Visual -->
+        <div id="main-kite">
+            <svg viewBox="0 0 100 150" width="100%" height="100%">
+                <path d="M50,0 L100,50 L50,100 L0,50 Z" fill="url(#kiteGrad)" stroke="white" stroke-width="2"/>
+                <path d="M50,100 L40,120 L60,120 Z" fill="#FFD700"/>
+                <path d="M50,0 L50,100" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                <path d="M0,50 Q50,30 100,50" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+                <defs>
+                    <linearGradient id="kiteGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffcc00;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#ff0055;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div id="kite-name" style="position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; color: white; text-shadow: 0 1px 2px black;"></div>
         </div>
+    </div>
+
+    <!-- 5. Footer Controls (Hidden initially) -->
+    <div class="controls-container" id="footer-controls" style="display: none;">
+        <button class="control-btn" onclick="shareLink()">
+            Share 📤
+        </button>
+        <button class="control-btn" onclick="location.reload()">
+            New Name 🔄
+        </button>
     </div>
 
     <script>
-        // --- CONFIG & STATE ---
-        const state = {
-            isFlying: false,
-            mouseX: window.innerWidth / 2,
-            name: "Friend"
+        const els = {
+            setupCard: document.getElementById('setup-card'),
+            nameInput: document.getElementById('nameInput'),
+            flyBtn: document.getElementById('flyBtn'),
+            scrollContainer: document.getElementById('scroll-container'),
+            scrollSignature: document.getElementById('scroll-signature'),
+            letsFlyBtn: document.getElementById('letsFlyBtn'),
+            celebrationUI: document.getElementById('celebration-ui'),
+            mainKite: document.getElementById('main-kite'),
+            kiteName: document.getElementById('kite-name'),
+            footerControls: document.getElementById('footer-controls'),
+            bgKites: document.getElementById('bg-kites-layer')
         };
 
-        const els = {
-            canvas: document.getElementById('string-canvas'),
-            ctx: document.getElementById('string-canvas').getContext('2d'),
-            kite: document.getElementById('main-kite-container'),
-            nameDisplay: document.getElementById('kite-name-display'),
-            nameInput: document.getElementById('nameInput'),
-            setupCard: document.getElementById('setup-card'),
-            celebrationUI: document.getElementById('celebration-ui'),
-            bgLayer: document.getElementById('bg-elements')
-        };
+        let userName = "";
+        let autoOpenTimer;
 
         // --- INIT ---
-        function init() {
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('load', () => {
+            createClouds();
+            createBgKites(5); 
             
-            // Name Sync
-            els.nameInput.addEventListener('input', (e) => {
-                state.name = e.target.value || "Friend";
-                els.nameDisplay.textContent = state.name;
-            });
-
-            // Launch Event
-            document.getElementById('launchBtn').addEventListener('click', launchKite);
-
-            // Interaction Tracking
-            document.addEventListener('mousemove', (e) => state.mouseX = e.clientX);
-            document.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                state.mouseX = e.touches[0].clientX;
-            }, { passive: false });
-
-            // Background Elements
-            createBackgroundKites();
-            
-            // Start Loop
-            requestAnimationFrame(renderLoop);
-            
-            // Check URL
+            // Check URL for name
             const urlParams = new URLSearchParams(window.location.search);
             const sharedName = urlParams.get('name');
             if(sharedName) {
-                state.name = sharedName;
                 els.nameInput.value = sharedName;
-                els.nameDisplay.textContent = sharedName;
             }
-        }
+        });
 
-        function resizeCanvas() {
-            els.canvas.width = window.innerWidth;
-            els.canvas.height = window.innerHeight;
-        }
-
-        // --- ANIMATION LOOP ---
-        function renderLoop() {
-            els.ctx.clearRect(0, 0, els.canvas.width, els.canvas.height);
-
-            // 1. Kite Physics (Visual Only)
-            const kiteRect = els.kite.getBoundingClientRect();
-            const kiteX = kiteRect.left + kiteRect.width / 2;
-            const kiteY = kiteRect.top + kiteRect.height;
-            const anchorX = window.innerWidth / 2;
-            const anchorY = window.innerHeight;
-
-            // Sway Effect
-            if(!state.isFlying) {
-                // Grounded: Gentle hover following mouse
-                const sway = (state.mouseX - window.innerWidth/2) * 0.05;
-                els.kite.style.transform = `translate(-50%, -50%) translateX(${sway}px) rotate(${sway * 0.1}deg)`;
-                
-                // Draw Slack String
-                drawManja(kiteX, kiteY - 60, anchorX, anchorY, 80);
-            } else {
-                // Flying: Auto sway
-                drawManja(kiteX, kiteY - 60, anchorX, anchorY, 0); // Tight string
-            }
-
-            requestAnimationFrame(renderLoop);
-        }
-
-        function drawManja(x1, y1, x2, y2, slack) {
-            const ctx = els.ctx;
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
+        // --- PHASE 1: INPUT & FLY ---
+        els.flyBtn.addEventListener('click', () => {
+            userName = els.nameInput.value.trim() || "Friend";
             
-            const cpX = (x1 + x2) / 2;
-            const cpY = (y1 + y2) / 2 + slack;
-            
-            ctx.quadraticCurveTo(cpX, cpY, x2, y2);
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.6)";
-            ctx.lineWidth = 1.5;
-            ctx.shadowBlur = 4;
-            ctx.shadowColor = "rgba(255,255,255,0.4)";
-            ctx.stroke();
-        }
+            // Hide Setup
+            els.setupCard.style.transform = "scale(0.8)";
+            els.setupCard.style.opacity = "0";
+            setTimeout(() => els.setupCard.style.display = "none", 500);
 
-        // --- ACTIONS ---
-        function launchKite() {
-            state.isFlying = true;
-            
-            // 1. Hide Setup
-            els.setupCard.style.opacity = '0';
-            els.setupCard.style.pointerEvents = 'none';
-            els.setupCard.style.transform = 'translateY(50px) scale(0.9)';
-            
-            // 2. Fly Kite Up
-            els.kite.style.transition = "top 3s cubic-bezier(0.19, 1, 0.22, 1), transform 1s";
-            els.kite.style.top = "18%"; 
-            
-            // 3. Show Celebration
+            // Show Scroll (Closed)
             setTimeout(() => {
-                els.celebrationUI.style.opacity = '1';
-                els.celebrationUI.style.pointerEvents = 'auto';
-                fireConfetti();
+                els.scrollContainer.style.transform = "translate(-50%, -50%) scale(1)";
+                els.scrollSignature.textContent = `From ${userName}`;
                 
-                // Add idle flying animation
-                els.kite.style.animation = "floatInAir 4s ease-in-out infinite alternate";
-            }, 1200);
-        }
+                // Auto Open Timer (5 Seconds)
+                autoOpenTimer = setTimeout(openScroll, 5000);
+            }, 600);
+        });
 
-        function resetApp() {
-            state.isFlying = false;
-            
-            els.celebrationUI.style.opacity = '0';
-            els.celebrationUI.style.pointerEvents = 'none';
-            
-            els.kite.style.animation = "none";
-            els.kite.style.top = "50%";
-            els.kite.style.transform = "translate(-50%, -50%)";
-            
-            setTimeout(() => {
-                els.setupCard.style.opacity = '1';
-                els.setupCard.style.pointerEvents = 'auto';
-                els.setupCard.style.transform = 'translateY(0) scale(1)';
-            }, 1000);
-            
-            els.nameInput.value = "";
-            state.name = "Friend";
-            els.nameDisplay.textContent = "Friend";
-        }
+        // --- PHASE 2 & 3: SCROLL OPEN ---
+        els.scrollContainer.addEventListener('click', openScroll);
 
-        // --- BACKGROUND ELEMENTS ---
-        function createBackgroundKites() {
-            const colors = ['#FFD700', '#FF4500', '#FF1493', '#00BFFF'];
-            
-            for(let i=0; i<8; i++) {
-                const k = document.createElement('div');
-                k.classList.add('kite-bg');
-                const size = Math.random() * 40 + 30;
-                k.style.width = size + 'px';
-                k.style.height = size + 'px';
-                k.style.background = colors[Math.floor(Math.random() * colors.length)];
-                k.style.left = Math.random() * 100 + '%';
-                k.style.top = Math.random() * 60 + '%';
-                k.style.transform = 'rotate(45deg)';
-                k.style.borderRadius = '2px 20px 2px 20px';
-                k.style.boxShadow = "0 0 15px rgba(255,255,255,0.2)";
-                
-                const duration = Math.random() * 6 + 4;
-                k.style.animationDuration = duration + 's';
-                k.style.animationDelay = -Math.random() * 5 + 's';
-                
-                els.bgLayer.appendChild(k);
+        function openScroll() {
+            clearTimeout(autoOpenTimer); 
+            if (!els.scrollContainer.classList.contains('open')) {
+                els.scrollContainer.classList.add('open');
+                document.querySelector('.roller-top').textContent = ""; // Clear text
             }
         }
 
-        function fireConfetti() {
-            const colors = ['#FFD700', '#FF8C00', '#FFFFFF'];
-            for(let i=0; i<80; i++) {
+        // --- PHASE 4: CELEBRATION ---
+        els.letsFlyBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent closing scroll if clicked inside
+            
+            // Hide Scroll
+            els.scrollContainer.style.opacity = '0';
+            els.scrollContainer.style.pointerEvents = 'none';
+
+            // Show Celebration UI
+            els.celebrationUI.style.opacity = '1';
+            els.celebrationUI.style.pointerEvents = 'auto';
+
+            // Show Main Kite
+            els.mainKite.style.display = 'block';
+            els.kiteName.textContent = userName;
+            // Animate Kite flying up
+            els.mainKite.animate([
+                { transform: 'translate(-50%, 100vh) rotate(0deg)' },
+                { transform: 'translate(-50%, -50%) rotate(10deg)' }
+            ], { duration: 2000, easing: 'ease-out', fill: 'forwards' });
+            
+            // Continuous Float
+            setTimeout(() => {
+                els.mainKite.style.animation = 'kiteFloat 3s ease-in-out infinite alternate';
+            }, 2000);
+
+            // Show Footer
+            els.footerControls.style.display = 'flex';
+
+            // Add MANY kites
+            createBgKites(20);
+        });
+
+        // --- BACKGROUND FX ---
+        function createClouds() {
+            const bg = document.querySelector('.mesh-background');
+            for(let i=0; i<6; i++) {
                 const c = document.createElement('div');
-                c.classList.add('confetti');
-                c.style.left = Math.random() * 100 + 'vw';
-                c.style.top = -10 + 'px';
-                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                c.style.animationDuration = Math.random() * 3 + 2 + 's';
-                c.style.width = Math.random() * 8 + 4 + 'px';
-                c.style.height = c.style.width;
-                document.body.appendChild(c);
-                setTimeout(() => c.remove(), 5000);
+                c.className = 'cloud';
+                c.style.width = Math.random() * 100 + 100 + 'px';
+                c.style.height = '40px';
+                c.style.top = Math.random() * 60 + '%';
+                c.style.animationDuration = Math.random() * 20 + 20 + 's';
+                bg.appendChild(c);
             }
         }
 
-        // --- SHARING ---
-        function openShare() {
-            const modal = document.getElementById('share-modal');
-            modal.style.display = 'flex';
-            setTimeout(() => modal.classList.add('active'), 10);
+        function createBgKites(count) {
+            const colors = ['#FF512F', '#F09819', '#4CD964', '#DD2476', '#3498db'];
+            for(let i=0; i<count; i++) {
+                const k = document.createElement('div');
+                k.className = 'bg-kite';
+                k.style.background = colors[Math.floor(Math.random() * colors.length)];
+                k.style.left = Math.random() * 100 + 'vw';
+                k.style.animationDuration = Math.random() * 5 + 5 + 's';
+                els.bgKites.appendChild(k);
+            }
         }
 
-        function closeShare() {
-            const modal = document.getElementById('share-modal');
-            modal.classList.remove('active');
-            setTimeout(() => modal.style.display = 'none', 300);
-        }
-
-        window.shareLink = function(platform) {
+        // --- SHARE ---
+        window.shareLink = function() {
             const baseUrl = window.location.href.split('?')[0];
-            const shareUrl = `${baseUrl}?name=${encodeURIComponent(state.name)}`;
-            const text = `Fly a kite with me! Happy Makar Sankranti from ${state.name}`;
+            const shareUrl = `${baseUrl}?name=${encodeURIComponent(userName)}`;
             
-            if (platform === 'whatsapp') window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + ' ' + shareUrl)}`);
-            if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`);
-            if (platform === 'copy') {
-                navigator.clipboard.writeText(shareUrl).then(() => {
-                    alert("Link copied!");
-                    closeShare();
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Happy Makar Sankranti',
+                    text: `Fly a kite with ${userName}!`,
+                    url: shareUrl,
                 });
+            } else {
+                navigator.clipboard.writeText(shareUrl).then(() => alert("Link copied!"));
             }
         }
 
-        // Add extra CSS
+        // Extra Styles
         const style = document.createElement('style');
         style.innerHTML = `
-            @keyframes floatInAir {
-                0% { transform: translate(-50%, 0) rotate(-3deg); }
-                100% { transform: translate(-50%, -20px) rotate(3deg); }
+            @keyframes kiteFloat {
+                0% { transform: translate(-50%, -50%) rotate(5deg) translateY(0); }
+                100% { transform: translate(-50%, -50%) rotate(-5deg) translateY(-20px); }
             }
         `;
         document.head.appendChild(style);
-
-        // Run
-        init();
 
     </script>
 </body>
