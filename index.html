@@ -25,7 +25,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #87CEEB 0%, #00BFFF 50%, #1E90FF 100%); /* Bright Sky */
+            background: linear-gradient(135deg, #87CEEB 0%, #00BFFF 50%, #1E90FF 100%);
             z-index: 0;
             overflow: hidden;
         }
@@ -137,7 +137,7 @@
             top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
             width: 320px;
-            height: 60px; /* Start closed */
+            height: 60px;
             z-index: 60;
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 1.5s cubic-bezier(0.45, 0, 0.55, 1);
             pointer-events: auto;
@@ -149,7 +149,6 @@
         .scroll-body {
             width: 100%;
             height: 100%;
-            /* Aged Parchment Texture */
             background-color: #f4e4bc;
             background-image: 
                 linear-gradient(to right, rgba(160, 82, 45, 0.1), transparent 5%, transparent 95%, rgba(160, 82, 45, 0.1)),
@@ -161,20 +160,15 @@
             border-left: 1px dashed rgba(139, 69, 19, 0.3);
             border-right: 1px dashed rgba(139, 69, 19, 0.3);
             position: relative;
-            /* Allow scrolling if content overflows on small screens */
             overflow-y: auto; 
             overflow-x: hidden;
-            
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly; /* Spread content out so button isn't pushed off */
+            justify-content: space-evenly;
             align-items: center;
-            
-            padding: 60px 25px; /* Large padding to clear rollers */
+            padding: 60px 25px;
             opacity: 0; 
             transition: opacity 0.5s;
-            
-            /* Hide scrollbar for cleaner look */
             scrollbar-width: none; 
             -ms-overflow-style: none;
         }
@@ -205,11 +199,11 @@
             position: absolute;
             left: 50%; transform: translateX(-50%);
             width: 380px; 
-            height: 50px; /* Slightly thicker */
+            height: 50px;
             background: linear-gradient(to bottom, #3e2723, #5d4037 20%, #8d6e63 40%, #5d4037 60%, #3e2723 90%, #1a100e);
             border-radius: 6px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-            z-index: 70; /* Higher than content */
+            z-index: 70;
             display: flex; align-items: center; justify-content: center;
             color: #ffecb3; font-weight: 700; font-family: 'Cinzel', serif; letter-spacing: 2px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
@@ -229,11 +223,10 @@
         .scroll-roller::before { left: -15px; }
         .scroll-roller::after { right: -15px; }
 
-        /* FIX: Increased z-index for roller-top so text is visible */
         .roller-top { 
             top: 0; 
             transition: top 1.5s cubic-bezier(0.45, 0, 0.55, 1); 
-            z-index: 66; /* Higher than bottom roller (65) */
+            z-index: 66;
         }
         .roller-bottom { 
             bottom: 0; 
@@ -241,19 +234,18 @@
             z-index: 65;
         }
 
-        /* Instruction Text Animation - Made Brighter/Bigger */
+        /* Instruction Text Animation */
         .instruction-text {
             display: inline-block;
-            font-size: 1.1rem; /* Increased size */
-            color: #ffffff; /* Pure white */
+            font-size: 1.1rem;
+            color: #ffffff;
             font-weight: 800;
             font-family: 'Outfit', sans-serif;
             letter-spacing: 1px;
             text-transform: uppercase;
             animation: glowPulse 1.5s ease-in-out infinite alternate;
-            /* Stroke to ensure visibility against wood texture */
             -webkit-text-stroke: 0.5px rgba(0,0,0,0.5); 
-            pointer-events: none; /* Let clicks pass through to roller */
+            pointer-events: none;
         }
 
         @keyframes glowPulse {
@@ -269,7 +261,6 @@
             }
         }
 
-        /* OPEN STATE HEIGHT - INCREASED TO FIT BUTTON */
         #scroll-container.open { height: 65vh; max-height: 650px; }
         #scroll-container.open .roller-top { top: -25px; }
         #scroll-container.open .roller-bottom { bottom: -25px; }
@@ -280,7 +271,6 @@
             z-index: 5;
             width: 100%;
             text-align: center;
-            /* Flex layout to ensure button stays visible */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -319,7 +309,7 @@
             animation: zoomIn 1s ease-out;
         }
 
-        /* Animated Rainbow Text - CENTERED with Pulse */
+        /* Animated Rainbow Text */
         .rainbow-text {
             font-family: 'Rozha One', serif;
             font-size: clamp(3rem, 12vw, 6rem);
@@ -352,7 +342,7 @@
             transform: translate(-50%, -50%);
             width: clamp(200px, 60vw, 350px); 
             height: clamp(300px, 90vw, 500px); 
-            z-index: 10; /* Lowered to sit BEHIND the text */
+            z-index: 10;
             transition: top 2s ease-in-out;
             display: none; 
             filter: drop-shadow(10px 20px 20px rgba(0,0,0,0.4));
@@ -364,14 +354,14 @@
             display: flex; justify-content: center; gap: 20px; z-index: 80;
         }
         
-        /* Updated Control Button with Outline Following Effect */
+        /* Updated Control Button */
         .control-btn {
             position: relative;
             z-index: 0;
-            padding: 12px 35px; /* Slightly wider */
+            padding: 12px 35px;
             border-radius: 50px;
             color: #1a365d; 
-            font-weight: 900; /* Thicker text */
+            font-weight: 900;
             cursor: pointer; 
             transition: transform 0.2s; 
             border: none; 
@@ -379,13 +369,11 @@
             font-size: 1.2rem; 
             display: flex; align-items: center; gap: 10px;
             overflow: hidden;
-            /* Stronger shadow for contrast against map/bg */
             box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.2); 
-            /* Entrance + Float Animation */
             animation: fadeInUp 0.5s ease-out backwards, btnFloat 3s ease-in-out infinite;
         }
 
-        /* 1. Rotating Gradient Layer (The "Outline") */
+        /* Rotating Gradient Layer */
         .control-btn::before {
             content: '';
             position: absolute;
@@ -393,17 +381,16 @@
             transform: translate(-50%, -50%);
             width: 200%; 
             height: 500%; 
-            /* UPDATED: High Contrast Neon Gradient for visibility */
             background: conic-gradient(transparent 20%, #00FFFF 40%, #FF00FF 60%, #FFD700 80%, #00FFFF 100%);
             animation: rotateBorder 3s linear infinite;
             z-index: -2;
         }
 
-        /* 2. Inner Background Layer (The Button Face) */
+        /* Inner Background Layer */
         .control-btn::after {
             content: '';
             position: absolute;
-            inset: 4px; /* Thicker border (was 3px) */
+            inset: 4px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 48px; 
             z-index: -1;
@@ -412,10 +399,9 @@
 
         .control-btn:hover { 
             transform: scale(1.05) translateY(-2px); 
-            color: #FF00FF; /* Hover text color */
+            color: #FF00FF;
         }
         
-        /* Button Animations */
         @keyframes rotateBorder {
             from { transform: translate(-50%, -50%) rotate(0deg); }
             to { transform: translate(-50%, -50%) rotate(360deg); }
@@ -426,11 +412,11 @@
             50% { transform: translateY(-5px); }
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translate3d(0, 40px, 0); }
             to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
+        
         @keyframes zoomIn {
             from { opacity: 0; transform: scale3d(0.3, 0.3, 0.3); }
             50% { opacity: 1; }
@@ -447,7 +433,7 @@
             to { transform: translateY(-10vh) translateX(50px) rotate(-10deg); }
         }
 
-        /* Swipe Instruction Styling */
+        /* Swipe Instruction */
         .swipe-instruction {
             margin-top: 20px;
             font-size: 0.9rem;
@@ -476,9 +462,7 @@
 <body>
 
     <!-- 1. Background Atmosphere -->
-    <div class="mesh-background">
-        <!-- Clouds generated via JS -->
-    </div>
+    <div class="mesh-background"></div>
     
     <!-- Background Flying Kites Layer -->
     <div id="bg-kites-layer"></div>
@@ -500,7 +484,7 @@
 
     </div>
 
-    <!-- 3. ANCIENT SCROLL (Replaces Envelope) -->
+    <!-- 3. ANCIENT SCROLL -->
     <div id="scroll-container">
         <!-- Top Roller -->
         <div class="scroll-roller roller-top">
@@ -509,7 +493,7 @@
         
         <!-- Scroll Paper Content -->
         <div class="scroll-body" id="scrollBody">
-            <!-- Watermark Kite Effect (Behind Text) -->
+            <!-- Watermark Kite Effect -->
             <div class="watermark-kite"></div>
 
             <div class="scroll-content-wrapper">
@@ -538,10 +522,10 @@
                     </svg>
                 </div>
                 
-                <!-- Invisible Spacer to ensure scrolling is possible -->
+                <!-- Invisible Spacer -->
                 <div class="scroll-spacer"></div>
 
-                <!-- Inner Action Button (Hidden mainly, triggered by scroll) -->
+                <!-- Inner Action Button -->
                 <button id="letsFlyBtn" class="btn-capsule" style="
                     padding: 1.2rem 2.5rem; 
                     font-size: 1.2rem; 
@@ -563,7 +547,7 @@
         <div class="scroll-roller roller-bottom"></div>
     </div>
 
-    <!-- 4. CELEBRATION UI (Hidden) -->
+    <!-- 4. CELEBRATION UI -->
     <div id="celebration-ui">
         <h1 class="rainbow-text">Happy Makar<br>Sankranti</h1>
         
@@ -585,12 +569,12 @@
         </div>
     </div>
 
-    <!-- 5. Footer Controls (Hidden initially) -->
+    <!-- 5. Footer Controls -->
     <div class="controls-container" id="footer-controls" style="display: none;">
         <button class="control-btn" onclick="shareLink()">
             Share 📤
         </button>
-        <button class="control-btn" onclick="location.reload()">
+        <button class="control-btn" onclick="resetToNewName()">
             New Name 🔄
         </button>
     </div>
@@ -620,7 +604,7 @@
             createClouds();
             createBgKites(5); 
             
-            // Check URL for name - DIRECT START LOGIC
+            // Check URL for name
             const urlParams = new URLSearchParams(window.location.search);
             const sharedName = urlParams.get('name');
             
@@ -635,7 +619,7 @@
                     if(els.scrollContainer) els.scrollContainer.style.transform = "translate(-50%, -50%) scale(1)";
                     if(els.scrollSignature) els.scrollSignature.textContent = `From ${userName}`;
                     
-                    // Auto Open Timer (2 Seconds for shared link - faster)
+                    // Auto Open Timer (2 Seconds for shared link)
                     autoOpenTimer = setTimeout(openScroll, 2000);
                 }, 100);
             }
@@ -643,7 +627,7 @@
             // --- PHASE 1: INPUT & FLY ---
             if (els.flyBtn) {
                 els.flyBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent immediate triggering of document click
+                    e.stopPropagation();
                     userName = els.nameInput.value.trim() || "Friend";
                     
                     // Hide Setup
@@ -656,8 +640,7 @@
                         els.scrollContainer.style.transform = "translate(-50%, -50%) scale(1)";
                         els.scrollSignature.textContent = `From ${userName}`;
                         
-                        // Enable "Click Anywhere" to open
-                        // Small delay to ensure previous clicks don't register
+                        // Enable click to open
                         setTimeout(() => {
                             document.addEventListener('click', openScrollOnce);
                         }, 100);
@@ -671,7 +654,7 @@
                 });
             }
 
-            // Wrapper function for the global listener
+            // Wrapper for single click
             function openScrollOnce() {
                 openScroll();
                 document.removeEventListener('click', openScrollOnce);
@@ -680,19 +663,19 @@
             // --- PHASE 2 & 3: SCROLL OPEN ---
             if (els.scrollContainer) {
                 els.scrollContainer.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Handle local click separately if needed, but global covers it
+                    e.stopPropagation();
                     openScrollOnce();
                 });
             }
 
             function openScroll() {
                 clearTimeout(autoOpenTimer); 
-                document.removeEventListener('click', openScrollOnce); // Ensure cleanup
+                document.removeEventListener('click', openScrollOnce);
 
                 if (els.scrollContainer && !els.scrollContainer.classList.contains('open')) {
                     els.scrollContainer.classList.add('open');
                     const topRoller = document.querySelector('.roller-top');
-                    if (topRoller) topRoller.innerHTML = ""; // Clear instruction text
+                    if (topRoller) topRoller.innerHTML = "";
                     
                     // Add Scroll Listener after opening
                     setTimeout(() => {
@@ -701,23 +684,20 @@
                             // Start Auto Scroll
                             startAutoScroll();
                         }
-                    }, 1500); // Wait for scroll open animation
+                    }, 1500);
                 }
             }
 
-            // --- AUTO SCROLL LOGIC (FIXED) ---
+            // --- AUTO SCROLL LOGIC ---
             function startAutoScroll() {
-                // Variable to track precise float position
                 let exactScrollTop = els.scrollBody.scrollTop;
-                const scrollSpeed = 0.5; // Smooth slow speed
+                const scrollSpeed = 0.5;
 
                 function scrollStep() {
-                    // Stop if celebration triggered or component removed
                     if (isScrolled || !els.scrollBody) return;
 
                     const maxScroll = els.scrollBody.scrollHeight - els.scrollBody.clientHeight;
 
-                    // If content fits without scrolling, finish immediately
                     if (maxScroll <= 0) {
                         checkScrollEnd();
                         return;
@@ -727,10 +707,8 @@
                         exactScrollTop += scrollSpeed;
                         els.scrollBody.scrollTop = exactScrollTop;
                         
-                        // Check if we reached the end
                         checkScrollEnd();
                         
-                        // Continue loop
                         if (!isScrolled) {
                              requestAnimationFrame(scrollStep);
                         }
@@ -740,21 +718,17 @@
                 requestAnimationFrame(scrollStep);
             }
 
-            // --- SCROLL DETECTION LOGIC ---
+            // --- SCROLL DETECTION ---
             function checkScrollEnd() {
                 if (isScrolled || !els.scrollBody) return;
 
-                // Calculate scroll position
                 const position = els.scrollBody.scrollTop + els.scrollBody.clientHeight;
                 const height = els.scrollBody.scrollHeight;
                 
-                // If scrolled near bottom (within 50px)
-                // OR if content is smaller than container height (no scroll needed)
                 if (position >= height - 50 || height <= els.scrollBody.clientHeight) {
                     isScrolled = true;
                     els.scrollBody.removeEventListener('scroll', checkScrollEnd);
                     
-                    // Trigger Celebration automatically
                     triggerCelebration();
                 }
             }
@@ -780,13 +754,11 @@
                         els.mainKite.style.display = 'block';
                         els.kiteName.textContent = userName;
                         
-                        // Animate Kite flying up AND slightly crossing the text
                         els.mainKite.animate([
                             { transform: 'translate(-50%, 100vh) rotate(0deg) scale(0.5)' },
                             { transform: 'translate(-40%, -40%) rotate(15deg) scale(1.1)' } 
                         ], { duration: 2500, easing: 'cubic-bezier(0.25, 1, 0.5, 1)', fill: 'forwards' });
                         
-                        // Continuous Float
                         setTimeout(() => {
                             els.mainKite.style.animation = 'kiteFloat 4s ease-in-out infinite alternate';
                         }, 2500);
@@ -797,12 +769,12 @@
                         els.footerControls.style.display = 'flex';
                     }
 
-                    // Add MANY kites
+                    // Add Kites
                     createBgKites(20);
                 }, 300);
             }
 
-            // --- PHASE 4: CELEBRATION (Fallback Click) ---
+            // --- PHASE 4: CELEBRATION ---
             if (els.letsFlyBtn) {
                 els.letsFlyBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -838,7 +810,7 @@
                 }
             }
 
-            // --- SHARE ---
+            // --- SHARE FUNCTION ---
             window.shareLink = function() {
                 const baseUrl = window.location.href.split('?')[0];
                 const shareUrl = `${baseUrl}?name=${encodeURIComponent(userName)}`;
@@ -852,6 +824,68 @@
                 } else {
                     navigator.clipboard.writeText(shareUrl).then(() => alert("Link copied!"));
                 }
+            }
+
+            // --- NEW NAME FUNCTION (FIXED) ---
+            window.resetToNewName = function() {
+                // Reset all states
+                isScrolled = false;
+                clearTimeout(autoOpenTimer);
+                document.removeEventListener('click', openScrollOnce);
+                
+                // Clear input
+                els.nameInput.value = '';
+                
+                // Hide celebration UI
+                if (els.celebrationUI) {
+                    els.celebrationUI.style.opacity = '0';
+                    els.celebrationUI.style.pointerEvents = 'none';
+                }
+                
+                // Hide footer controls
+                if (els.footerControls) {
+                    els.footerControls.style.display = 'none';
+                }
+                
+                // Hide main kite
+                if (els.mainKite) {
+                    els.mainKite.style.display = 'none';
+                    els.mainKite.style.animation = 'none';
+                }
+                
+                // Hide scroll
+                if (els.scrollContainer) {
+                    els.scrollContainer.classList.remove('open');
+                    els.scrollContainer.style.opacity = '1';
+                    els.scrollContainer.style.transform = "translate(-50%, -50%) scale(0)";
+                    els.scrollContainer.style.pointerEvents = 'auto';
+                    els.scrollContainer.style.transition = "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 1.5s cubic-bezier(0.45, 0, 0.55, 1), opacity 0.5s ease";
+                    
+                    // Reset scroll position
+                    if (els.scrollBody) {
+                        els.scrollBody.scrollTop = 0;
+                        els.scrollBody.removeEventListener('scroll', checkScrollEnd);
+                    }
+                    
+                    // Restore roller text
+                    const topRoller = document.querySelector('.roller-top');
+                    if (topRoller) {
+                        topRoller.innerHTML = '<span class="instruction-text">Tap Anywhere to Open</span>';
+                    }
+                }
+                
+                // Show setup card
+                if (els.setupCard) {
+                    els.setupCard.style.display = 'block';
+                    els.setupCard.style.transform = "translateY(0)";
+                    els.setupCard.style.opacity = "1";
+                }
+                
+                // Clear URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                
+                // Focus on input
+                els.nameInput.focus();
             }
         });
 
